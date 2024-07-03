@@ -1,13 +1,23 @@
 <template>
-  <form>
-    <label for="email">Email:</label>    
-    <input type="text">
-  </form>
+    <form>
+        <label for="email">Email:</label>
+        <input v-model="email" type="email" required>
+
+        <label>Password:</label>
+        <input v-model="password" type="password" required>
+    </form>
+    <p>Email: {{ email }}</p>
+    <p>Password: {{ password }}</p>
 </template>
 
 <script>
 export default {
-
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    }
 }
 </script>
 
