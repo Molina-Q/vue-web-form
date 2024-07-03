@@ -1,10 +1,11 @@
 <template>
-    <form>
+    <form @submit.prevent="handleSubmit">
         <label for="email">Email:</label>
         <input v-model="email" type="email" id="email" required>
 
         <label for="password">Password:</label>
         <input v-model="password" type="password" id="password" required>
+        <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
         <label for="role">Role:</label>
         <select id="role" v-model="role">
@@ -24,6 +25,10 @@
             <label>Accept terms and conditions</label>
         </div>
 
+        <div class="submit">
+            <button>Create an Account</button>
+        </div>
+
     </form>
 
     <p>Email: {{ email }}</p>
@@ -41,7 +46,8 @@ export default {
             role: '',
             terms: false,
             tempSkill: '',
-            skills: []
+            skills: [],
+            passwordError: ''
         }
     },
     methods: {
@@ -55,7 +61,18 @@ export default {
         },
         removeSkill(skill) {
             // console.log(toRemove);
-            this.skills = this.skills.filter(item => (item !== skill)); 
+            this.skills = this.skills.filter(item => (item !== skill));
+        },
+        handleSubmit() {
+            this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 5 characters';
+
+            if(this.passwordError) {
+                console.log('Email:', this.email);
+                console.log('Password:', this.password);
+                console.log('Role:', this.role);
+                console.log('Skills:', this.skills);
+                console.log('Terms accepted:', this.terms);
+            }
         }
     }
 }
@@ -111,5 +128,25 @@ input[type="checkbox"] {
     font-weight: bold;
     color: #777;
     cursor: pointer;
+}
+
+button {
+    background: #0b6dff;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    border-radius: 20px;
+}
+
+.submit {
+    text-align: center;
+}
+
+.error {
+    color: #ff0062;
+    margin-top: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 </style>
